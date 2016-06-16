@@ -54,6 +54,27 @@ create: function() {
 		this.music.loop = true; // Make it loop
 		this.music.play();
         
+    
+    // Create the emitter with 15 particles. We don't need to set the x y
+// Since we don't know where to do the explosion yet
+this.emitter = game.add.emitter(0, 0, 15);
+
+// Set the 'pixel' image for the particles
+this.emitter.makeParticles('pixel');
+
+// Set the x and y speed of the particles between -150 and 150
+// Speed will be randomly picked between -150 and 150 for each particle
+this.emitter.setYSpeed(-150, 150);
+this.emitter.setXSpeed(-150, 150);
+
+// Scale the particles from 2 time their size to 0 in 800ms
+// Parameters are: startX, endX, startY, endY, duration
+this.emitter.setScale(2, 0, 2, 0, 800);
+
+// Use no gravity
+this.emitter.gravity = 0;
+    
+    
 		this.enemies = game.add.group();
         this.enemies.enableBody = true;
         this.enemies.createMultiple(10, 'enemy');
@@ -96,6 +117,7 @@ create: function() {
         if (!this.player.inWorld) {
             this.playerRespawn();
         }
+        
     },
 
     movePlayer: function() {
@@ -188,6 +210,16 @@ game.add.tween(this.coin.scale).to({x: 1, y: 1}, 300).start();
     playerDie: function() {
         //game.state.start('main');
 
+        // Set the position of the emitter on top of the player
+    this.emitter.x = this.player.x;
+    this.emitter.y = this.player.y;
+    // Start the emitter by exploding 15 particles that will live 800ms
+    this.emitter.start(true, 800, null, 15);
+        
+        
+        
+        
+    // Play the sound and go to the menu state
                 //increment death counter
                 this.deathcounter += 1;
                 this.deathcounterLabel.text = this.deathcounter;
@@ -195,7 +227,10 @@ game.add.tween(this.coin.scale).to({x: 1, y: 1}, 300).start();
                 //set invincibility frames
                 this.iframes = true;
                 this.icounter = 5;
-    },
+        
+   
+},
+                
 
         playerRespawn: function() {
         //game.state.start('main');
@@ -212,7 +247,14 @@ game.add.tween(this.coin.scale).to({x: 1, y: 1}, 300).start();
                 //increment death counter and grant invincibility frames
                 this.playerDie();
     },
+    
+    startMenu: function() {
+    game.state.start('menu');
+},
 
+    
+    
+    
 };
 
 
