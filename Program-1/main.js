@@ -2,11 +2,11 @@ var mainState = {
 
 	//Preload images
     preload: function() {
-        game.load.image('player', 'assets/neoshad.png');
+        game.load.image('player', 'assets/player.png');
         game.load.image('wallV', 'assets/wallVertical.png');
         game.load.image('wallH', 'assets/wallHorizontal.png');
         game.load.image('coin', 'assets/Retro Coin.png');
-        game.load.image('enemy', 'assets/rednoct.png');
+        game.load.image('enemy', 'assets/enemy.png');
     },
 
 	//Create
@@ -59,19 +59,23 @@ var mainState = {
 		//Uses to set invincibility frames
 		this.iframes = false;
 		this.icounter = 0;
-
+		console.log(this.player);
+		
 		
         this.enemies = game.add.group();
         this.enemies.enableBody = true;
         this.enemies.createMultiple(10, 'enemy');
         game.time.events.loop(2200, this.addEnemy, this);
+		console.log(this.enemies); 
     },
 
     update: function() {
         game.physics.arcade.collide(this.player, this.walls);
         game.physics.arcade.collide(this.enemies, this.walls);
         game.physics.arcade.overlap(this.player, this.coin, this.takeCoin, null, this);
-		
+		//console.log(this.enemies);
+		if(this.enemies.children[0].body.position.y == this.player.body.position.y)
+			console.log(this.enemies);
 		//if player has no invincibility frames
 		if(!this.iframes)
 			//see if colliding with enemy

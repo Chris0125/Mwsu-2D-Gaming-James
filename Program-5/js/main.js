@@ -14,20 +14,34 @@ function create() {
     //  Create some map data dynamically
     //  Map size is 128x128 tiles
     var data = '';
-
-    for (var y = 0; y < 128; y++)
+	var arr = [];
+    var num = 12
+	
+	for (var y = 0; y < num; y++)
     {
-        for (var x = 0; x < 128; x++)
+		var ar = []
+        for (var x = 0; x < num; x++)
+        {	
+			ar[x] = game.rnd.between(0, 20).toString();
+           
+			
+		} arr[y] = ar;
+    }
+	
+	
+	for (var y = 0; y < num; y++)
+    {
+        for (var x = 0; x < num; x++)
         {
-            data += game.rnd.between(0, 20).toString();
+            data += arr[y][x];
 
-            if (x < 127)
+            if (x < num - 1)
             {
                 data += ',';
             }
         }
 
-        if (y < 127)
+        if (y < num -1)
         {
             data += "\n";
         }
@@ -76,4 +90,9 @@ function update() {
         game.camera.y++;
     }
 
+}
+
+
+function mark (){
+	
 }
