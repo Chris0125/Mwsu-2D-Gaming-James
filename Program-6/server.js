@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var express = require('express')
   , app = express()
   , server = require('http').createServer(app)
@@ -103,3 +104,6 @@ app.get('/', function (req, res, next) {
 server.listen(process.env.PORT || 55555, function () {
     console.log('\033[96mlistening on localhost:55555 \033[39m');
 });
+=======
+
+>>>>>>> b867b2c1f23ff21153ffefc4934e163cbbb12efd
